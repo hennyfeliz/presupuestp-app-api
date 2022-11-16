@@ -1,13 +1,14 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entity.Ingresos;
+import com.example.demo.Entity.Presupuesto;
+import com.example.demo.Exceptions.ResourceNotFoundException;
 import com.example.demo.Repository.IIngresoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,36 @@ public class IngresoController {
     @GetMapping("/{id}")
     public Optional<List<Ingresos>> getAll(@PathVariable(value = "id") Long id) {
         return ingresoRepository.findAllById(id);
+    }
+
+
+    @PostMapping("/")
+    public HttpStatus createIngreso(@Valid @RequestBody Ingresos ingreso){
+        ingresoRepository.save(ingreso);
+        return HttpStatus.ACCEPTED;
+    }
+
+    @PutMapping("/{id}")
+    public HttpStatus updatePresupuesto(@PathVariable(value = "id") Long id,
+                                        @Valid @RequestBody Ingresos ingresoDetails){
+
+        Ingresos ingreso = ingresoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ingresos", "id", id));
+
+        ingreso.setId(ingresoDetails.getId());
+        ingreso.setValor(ingresoDetails.getValor());
+        ingreso.setPresupuesto(ingresoDetails.getPresupuesto());
+        ingreso.setDescripcion(ingresoDetails.getDescripcion());
+
+        ingresoRepository.save(ingreso);
+        return HttpStatus.OK;
+    }
+
+    @DeleteMapping("/{id}")
+    public HttpStatus deleteIngreso(@PathVariable(value = "id") Long id){
+        Ingresos ingreso = ingresoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ingresos", "id", id));
+
+        ingresoRepository.delete(ingreso);
+        return HttpStatus.ACCEPTED;
     }
 
 
