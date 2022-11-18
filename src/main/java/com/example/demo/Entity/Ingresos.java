@@ -16,11 +16,11 @@ public class Ingresos {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Long idIngreso;
 
     private String descripcion;
 
-    private float valor;
+    private Double valor;
 
     @ManyToOne
     @JoinColumn(name = "presupuesto")
@@ -31,7 +31,7 @@ public class Ingresos {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Ingresos ingresos = (Ingresos) o;
-        return id != null && Objects.equals(id, ingresos.id);
+        return idIngreso != null && Objects.equals(idIngreso, ingresos.idIngreso);
     }
 
     @Override
