@@ -30,6 +30,10 @@ public class IngresoController {
         return ingresoRepository.findAllById(id);
     }
 
+    @GetMapping("/searchByPresupuesto/{id}")
+    public Optional<List<Ingresos>> getAllByPresupuesto(@PathVariable(value = "id") Long id) {
+        return ingresoRepository.findByPresupuestoId(id);
+    }
 
     @PostMapping("/")
     public HttpStatus createIngreso(@Valid @RequestBody Ingresos ingreso){

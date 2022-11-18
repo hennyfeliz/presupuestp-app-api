@@ -30,6 +30,11 @@ public class EgresoController {
         return egresoRepository.findAllById(id);
     }
 
+    @GetMapping("/searchByPresupuesto/{id}")
+    public Optional<List<Egresos>> getAllByPresupuesto(@PathVariable(value = "id") Long id) {
+        return egresoRepository.findByPresupuestoId(id);
+    }
+
     @PostMapping("/")
     public HttpStatus createEgreso(@Valid @RequestBody Egresos egreso){
         egresoRepository.save(egreso);

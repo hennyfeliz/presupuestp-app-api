@@ -12,6 +12,6 @@ public interface IIngresoRepository extends JpaRepository<Ingresos, Long> {
 
     Optional<List<Ingresos>> findAllById(Long id);
 
-    Optional<List<Ingresos>> findAllBy
+    Optional<List<Ingresos>> findByPresupuestoId(Long id);
 
 }

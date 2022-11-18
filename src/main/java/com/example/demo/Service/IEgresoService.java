@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface IEgresoService {
 
     Optional<List<Egresos>> getAll(Long id);
+
+    Optional<List<Egresos>> getAllByPresupuesto(Long id);
 }

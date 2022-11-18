@@ -19,4 +19,9 @@ public class IngresoServiceImpl implements IIngresoService {
     public Optional<List<Ingresos>> getAll(Long id) {
         return ingresoRepository.findAllById(id);
     }
+
+    @Override
+    public Optional<List<Ingresos>> getByPresupuesto(Long id) {
+        return ingresoRepository.findByPresupuestoId(id);
+    }
 }
