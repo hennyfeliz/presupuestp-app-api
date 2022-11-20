@@ -47,6 +47,10 @@ insert into Ingresos (descripcion, valor, presupuesto) values
 ("ventas", 200.0, 3),
 ("codigo", 200.0, 2);
 
+insert into Ingresos (descripcion, valor, presupuesto) values
+("Computadora", 2400.0, 4),
+("Juegos", 180.0, 4);
+
 select * from Ingresos;
 
 insert into Egresos (descripcion, valor, presupuesto) values
