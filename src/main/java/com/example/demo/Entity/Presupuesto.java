@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +20,14 @@ public class Presupuesto {
     private Long id;
 
     private float valor;
+
+    @OneToMany
+    @Column(name = "ingresos")
+    private List<Ingresos> ingresos;
+
+    @OneToMany
+    @Column(name = "egresos")
+    private List<Egresos> egresos;
 
     @Override
     public boolean equals(Object o) {

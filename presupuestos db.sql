@@ -36,6 +36,21 @@ describe presupuesto_db;
 
 show tables;
 
+/* adding foreign key ingresos */
+alter table Presupuesto add column ingresos int;
+
+alter table Presupuesto
+add foreign key (ingresos) references Presupuesto(id);
+
+/* adding foreign key egresos */
+alter table Presupuesto add column egresos int;
+
+alter table Presupuesto
+add foreign key (egresos) references Presupuesto(id);
+
+update Presupuesto
+set ingresos = 4;
+
 insert into Presupuesto (valor) values
 (2000.00),
 (4300.00),
@@ -43,13 +58,15 @@ insert into Presupuesto (valor) values
 (1200.00),
 (4900.00);
 
+
+insert into Presupuesto (valor) values
+(2290.00);
+
+
+
 insert into Ingresos (descripcion, valor, presupuesto) values
 ("ventas", 200.0, 3),
 ("codigo", 200.0, 2);
-
-insert into Ingresos (descripcion, valor, presupuesto) values
-("Computadora", 2400.0, 4),
-("Juegos", 180.0, 4);
 
 select * from Ingresos;
 
@@ -60,4 +77,13 @@ insert into Egresos (descripcion, valor, presupuesto) values
 ("visita", 140.0, 4),
 ("zapatos", 400.0, 3);
 
+/* all describe */
+describe Ingresos;
+describe Presupuesto;
+describe Egresos;
+
+/* all selects */
 select * from Egresos;
+select * from Ingresos;
+select * from Presupuesto;
+
