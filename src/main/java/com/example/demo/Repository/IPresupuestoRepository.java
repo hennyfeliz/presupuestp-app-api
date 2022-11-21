@@ -10,6 +10,8 @@ import java.util.Optional;
 @Repository
 public interface IPresupuestoRepository extends JpaRepository<Presupuesto, Long> {
 
-    Optional<List<Presupuesto>> findAllById(Long id);
+    Optional<List<Presupuesto>> findAllByIdPresupuesto(Long idPresupuesto);
+
+    Presupuesto findByIdPresupuesto(Long id);
 
 }

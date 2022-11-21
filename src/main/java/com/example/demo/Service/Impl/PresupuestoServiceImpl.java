@@ -15,7 +15,12 @@ public class PresupuestoServiceImpl implements IPresupuestoService {
 
 
     @Override
-    public Optional<List<Presupuesto>> getAll(Long id) {
-        return presupuestoRepository.findAllById(id);
+    public Optional<List<Presupuesto>> getAll(Long idPresupuesto) {
+        return presupuestoRepository.findAllByIdPresupuesto(idPresupuesto);
+    }
+
+    @Override
+    public Presupuesto getPresupuesto(Long idPresupuesto) {
+        return presupuestoRepository.findByIdPresupuesto(idPresupuesto);
     }
 }

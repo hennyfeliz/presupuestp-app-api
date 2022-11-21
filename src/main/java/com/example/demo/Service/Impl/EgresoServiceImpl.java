@@ -21,7 +21,7 @@ public class EgresoServiceImpl implements IEgresoService {
 
     @Override
     public Optional<List<Egresos>> getAllByPresupuesto(Long id) {
-        return egresoRepository.findByPresupuestoId(id);
+        return egresoRepository.findByPresupuestoIdPresupuesto(id);
     }
 
 }

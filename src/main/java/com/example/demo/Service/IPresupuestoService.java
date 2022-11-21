@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface IPresupuestoService {
 
     Optional<List<Presupuesto>> getAll(Long id);
+
+    Presupuesto getPresupuesto(Long id);
 }

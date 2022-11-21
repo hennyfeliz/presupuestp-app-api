@@ -37,7 +37,7 @@ public class IngresoController {
 
     @GetMapping("/searchByPresupuesto/{id}")
     public Optional<List<Ingresos>> getAllByPresupuesto(@PathVariable(value = "id") Long id) {
-        return ingresoRepository.findByPresupuestoId(id);
+        return ingresoRepository.findByPresupuestoIdPresupuesto(id);
     }
 
     @PostMapping("/")

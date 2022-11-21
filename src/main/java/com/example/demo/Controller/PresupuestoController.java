@@ -25,8 +25,8 @@ public class PresupuestoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<List<Presupuesto>> getAll(@PathVariable(value = "id") Long id){
-        return presupuestoRepository.findAllById(id);
+    public Optional<List<Presupuesto>> getAll(@PathVariable(value = "idPresupuesto") Long idPresupuesto){
+        return presupuestoRepository.findAllByIdPresupuesto(idPresupuesto);
     }
 
     @PostMapping("/")
@@ -36,12 +36,12 @@ public class PresupuestoController {
     }
 
     @PutMapping("/{id}")
-    public HttpStatus updatePresupuesto(@PathVariable(value = "id") Long id,
+    public HttpStatus updatePresupuesto(@PathVariable(value = "idPresupuesto") Long idPresupuesto,
                                         @Valid @RequestBody Presupuesto presupuestoDetails){
 
-        Presupuesto presupuesto = presupuestoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Presupuesto", "id", id));
+        Presupuesto presupuesto = presupuestoRepository.findById(idPresupuesto).orElseThrow(() -> new ResourceNotFoundException("Presupuesto", "idPresupuesto", idPresupuesto));
 
-        presupuesto.setId(presupuestoDetails.getId());
+        presupuesto.setIdPresupuesto(presupuestoDetails.getIdPresupuesto());
         presupuesto.setValor(presupuestoDetails.getValor());
 
         presupuestoRepository.save(presupuesto);
@@ -49,8 +49,8 @@ public class PresupuestoController {
     }
 
     @DeleteMapping("/{id}")
-    public HttpStatus deleteFacilitador(@PathVariable(value = "id") Long id){
-        Presupuesto presupuesto = presupuestoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Presupuesto", "id", id));
+    public HttpStatus deleteFacilitador(@PathVariable(value = "idPresupuesto") Long idPresupuesto){
+        Presupuesto presupuesto = presupuestoRepository.findById(idPresupuesto).orElseThrow(() -> new ResourceNotFoundException("Presupuesto", "idPresupuesto", idPresupuesto));
 
         presupuestoRepository.delete(presupuesto);
         return HttpStatus.ACCEPTED;

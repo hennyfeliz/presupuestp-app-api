@@ -17,7 +17,7 @@ public class Presupuesto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Long idPresupuesto;
 
     private float valor;
 
@@ -34,7 +34,7 @@ public class Presupuesto {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Presupuesto that = (Presupuesto) o;
-        return id != null && Objects.equals(id, that.id);
+        return idPresupuesto != null && Objects.equals(idPresupuesto, that.idPresupuesto);
     }
 
     @Override

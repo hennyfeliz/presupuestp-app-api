@@ -32,7 +32,7 @@ public class EgresoController {
 
     @GetMapping("/searchByPresupuesto/{id}")
     public Optional<List<Egresos>> getAllByPresupuesto(@PathVariable(value = "id") Long id) {
-        return egresoRepository.findByPresupuestoId(id);
+        return egresoRepository.findByPresupuestoIdPresupuesto(id);
     }
 
     @PostMapping("/")

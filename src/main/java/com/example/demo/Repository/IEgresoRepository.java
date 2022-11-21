@@ -12,6 +12,6 @@ public interface IEgresoRepository extends JpaRepository<Egresos, Long> {
 
     Optional<List<Egresos>> findAllById(Long id);
 
-    Optional<List<Egresos>> findByPresupuestoId(Long id);
+    Optional<List<Egresos>> findByPresupuestoIdPresupuesto(Long id);
 
 }
