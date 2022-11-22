@@ -16,7 +16,7 @@ public class Egresos {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Long idEgreso;
 
     private String descripcion;
 
@@ -31,7 +31,7 @@ public class Egresos {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Egresos egresos = (Egresos) o;
-        return id != null && Objects.equals(id, egresos.id);
+        return idEgreso != null && Objects.equals(idEgreso, egresos.idEgreso);
     }
 
     @Override

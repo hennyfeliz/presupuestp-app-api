@@ -4,12 +4,14 @@ import com.example.demo.Entity.Egresos;
 import com.example.demo.Entity.Ingresos;
 import com.example.demo.Exceptions.ResourceNotFoundException;
 import com.example.demo.Repository.IEgresoRepository;
+import com.example.demo.Service.Impl.EgresoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -20,19 +22,28 @@ public class EgresoController {
     @Autowired
     private IEgresoRepository egresoRepository;
 
+    @Autowired
+    private EgresoServiceImpl egresoServiceImpl;
+
     @GetMapping("/")
     public Optional<List<Egresos>> getAll() {
         return Optional.of(egresoRepository.findAll());
     }
 
-    @GetMapping("/{id}")
-    public Optional<List<Egresos>> getAll(@PathVariable(value = "id") Long id) {
-        return egresoRepository.findAllById(id);
+    @GetMapping("/{idEgreso}")
+    public Optional<List<Egresos>> getAll(@PathVariable(value = "idEgreso") Long idEgreso) {
+        return egresoRepository.findAllByIdEgreso(idEgreso);
     }
 
-    @GetMapping("/searchByPresupuesto/{id}")
-    public Optional<List<Egresos>> getAllByPresupuesto(@PathVariable(value = "id") Long id) {
-        return egresoRepository.findByPresupuestoIdPresupuesto(id);
+    @GetMapping("/searchByPresupuesto/{idEgreso}")
+    public Optional<List<Egresos>> getAllByPresupuesto(@PathVariable(value = "idEgreso") Long idEgreso) {
+        return egresoRepository.findByPresupuestoIdPresupuesto(idEgreso);
+    }
+
+    @PatchMapping("/{idEgreso}")
+    public HttpStatus updateEgresoAny(@PathVariable(value = "idEgreso") Long idEgreso, @Valid @RequestBody Map<Object, Object> objectMap){
+        egresoServiceImpl.updateEgresoWithMap(idEgreso, objectMap);
+        return HttpStatus.ACCEPTED;
     }
 
     @PostMapping("/")
@@ -41,13 +52,13 @@ public class EgresoController {
         return HttpStatus.ACCEPTED;
     }
 
-    @PutMapping("/{id}")
-    public HttpStatus updateEgreso(@PathVariable(value = "id") Long id,
+    @PutMapping("/{idEgreso}")
+    public HttpStatus updateEgreso(@PathVariable(value = "idEgreso") Long idEgreso,
                                         @Valid @RequestBody Egresos egresoDetails){
 
-        Egresos egreso = egresoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Egresos", "id", id));
+        Egresos egreso = egresoRepository.findById(idEgreso).orElseThrow(() -> new ResourceNotFoundException("Egresos", "idEgreso", idEgreso));
 
-        egreso.setId(egresoDetails.getId());
+        egreso.setIdEgreso(egresoDetails.getIdEgreso());
         egreso.setDescripcion(egresoDetails.getDescripcion());
         egreso.setValor(egresoDetails.getValor());
         egreso.setPresupuesto(egresoDetails.getPresupuesto());
@@ -56,9 +67,9 @@ public class EgresoController {
         return HttpStatus.OK;
     }
 
-    @DeleteMapping("/{id}")
-    public HttpStatus deleteEgreso(@PathVariable(value = "id") Long id){
-        Egresos egreso = egresoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Egresos", "id", id));
+    @DeleteMapping("/{idEgreso}")
+    public HttpStatus deleteEgreso(@PathVariable(value = "idEgreso") Long idEgreso){
+        Egresos egreso = egresoRepository.findById(idEgreso).orElseThrow(() -> new ResourceNotFoundException("Egresos", "idEgreso", idEgreso));
 
         egresoRepository.delete(egreso);
         return HttpStatus.ACCEPTED;

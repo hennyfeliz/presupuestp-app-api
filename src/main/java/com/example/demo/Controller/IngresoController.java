@@ -46,7 +46,7 @@ public class IngresoController {
         return HttpStatus.ACCEPTED;
     }
 
-    @PatchMapping("/updateIngreso/{idIngreso}")
+    @PatchMapping("/{idIngreso}")
     public HttpStatus updateCursoAny(@PathVariable(value = "idIngreso") Long idIngreso, @Valid @RequestBody Map<Object, Object> objectMap){
         ingresoServiceImpl.updateIngresoWithMap(idIngreso, objectMap);
         return HttpStatus.ACCEPTED;
