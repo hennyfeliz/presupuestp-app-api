@@ -19,7 +19,7 @@ public class Presupuesto {
     @Column(name = "id", nullable = false)
     private Long idPresupuesto;
 
-    private float valor;
+    private Double valor;
 
     @OneToMany
     @Column(name = "ingresos")

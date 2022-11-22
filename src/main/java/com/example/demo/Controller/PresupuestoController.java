@@ -3,12 +3,14 @@ package com.example.demo.Controller;
 import com.example.demo.Entity.Presupuesto;
 import com.example.demo.Exceptions.ResourceNotFoundException;
 import com.example.demo.Repository.IPresupuestoRepository;
+import com.example.demo.Service.Impl.PresupuestoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,12 +21,15 @@ public class PresupuestoController {
     @Autowired
     private IPresupuestoRepository presupuestoRepository;
 
+    @Autowired
+    private PresupuestoServiceImpl presupuestoServiceImpl;
+
     @GetMapping("/")
     public List<Presupuesto> getAll(){
         return presupuestoRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{idPresupuesto}")
     public Optional<List<Presupuesto>> getAll(@PathVariable(value = "idPresupuesto") Long idPresupuesto){
         return presupuestoRepository.findAllByIdPresupuesto(idPresupuesto);
     }
@@ -35,7 +40,13 @@ public class PresupuestoController {
         return HttpStatus.ACCEPTED;
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{idPresupuesto}")
+    public HttpStatus updatePresupuestoAny(@PathVariable(value = "idPresupuesto") Long idPresupuesto, @Valid @RequestBody Map<Object, Object> objectMap){
+        presupuestoServiceImpl.updatePresupuestoWithMap(idPresupuesto, objectMap);
+        return HttpStatus.ACCEPTED;
+    }
+
+    @PutMapping("/{idPresupuesto}")
     public HttpStatus updatePresupuesto(@PathVariable(value = "idPresupuesto") Long idPresupuesto,
                                         @Valid @RequestBody Presupuesto presupuestoDetails){
 
@@ -48,7 +59,7 @@ public class PresupuestoController {
         return HttpStatus.OK;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idPresupuesto}")
     public HttpStatus deleteFacilitador(@PathVariable(value = "idPresupuesto") Long idPresupuesto){
         Presupuesto presupuesto = presupuestoRepository.findById(idPresupuesto).orElseThrow(() -> new ResourceNotFoundException("Presupuesto", "idPresupuesto", idPresupuesto));
 
